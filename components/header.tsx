@@ -42,14 +42,14 @@ export function Header() {
               href="#home"
               className={`${isScrolled ? "text-gray-900" : "text-white"} hover:text-cyan-400 transition-colors font-medium`}
             >
-              HOME
+              Home
             </Link>
 
             <div className="group relative">
               <button
                 className={`${isScrolled ? "text-gray-900" : "text-white"} hover:text-cyan-400 transition-colors font-medium flex items-center gap-1`}
               >
-                PRODUCTS
+                Products
                 <ChevronDown className="h-4 w-4" />
               </button>
               <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
@@ -89,7 +89,7 @@ export function Header() {
               <button
                 className={`${isScrolled ? "text-gray-900" : "text-white"} hover:text-cyan-400 transition-colors font-medium flex items-center gap-1`}
               >
-                SOLUTIONS
+                Solutions
                 <ChevronDown className="h-4 w-4" />
               </button>
               <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
@@ -198,19 +198,19 @@ export function Header() {
               href="#about"
               className={`${isScrolled ? "text-gray-900" : "text-white"} hover:text-cyan-400 transition-colors font-medium`}
             >
-              ABOUT
+              About
             </Link>
             <Link
               href="#contact"
               className={`${isScrolled ? "text-gray-900" : "text-white"} hover:text-cyan-400 transition-colors font-medium`}
             >
-              CONTACT
+              Contact
             </Link>
             <Link
               href="#careers"
               className={`${isScrolled ? "text-gray-900" : "text-white"} hover:text-cyan-400 transition-colors font-medium`}
             >
-              CAREERS
+              Careers
             </Link>
           </nav>
 
@@ -230,22 +230,22 @@ export function Header() {
           <nav className="md:hidden py-4 bg-black/80 backdrop-blur-sm">
             <div className="flex flex-col gap-4">
               <Link href="#home" className="text-white hover:text-cyan-400 transition-colors font-medium">
-                HOME
+                Home
               </Link>
               <Link href="#products" className="text-white hover:text-cyan-400 transition-colors font-medium">
-                PRODUCTS
+                Products
               </Link>
               <Link href="#solutions" className="text-white hover:text-cyan-400 transition-colors font-medium">
-                SOLUTIONS
+                Solutions
               </Link>
               <Link href="#about" className="text-white hover:text-cyan-400 transition-colors font-medium">
-                ABOUT
+                About
               </Link>
               <Link href="#contact" className="text-white hover:text-cyan-400 transition-colors font-medium">
-                CONTACT
+                Contact
               </Link>
               <Link href="#careers" className="text-white hover:text-cyan-400 transition-colors font-medium">
-                CAREERS
+                Careers
               </Link>
             </div>
           </nav>
