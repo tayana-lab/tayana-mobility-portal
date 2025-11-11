@@ -14,7 +14,7 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-24">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center mt-4">
             <Image
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tayanaLogo-8sVpBPeIrRvCl3lnLcOCv1ZyvX8gSH.png"
               alt="Tayana Mobility"

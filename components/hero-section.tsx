@@ -19,7 +19,7 @@ export function HeroSection() {
       <div className="relative z-10 h-full flex items-center">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               <span className="text-cyan-400">YOUR PARTNER</span>
               <br />
               <span className="text-white">IN DIGITAL</span>
