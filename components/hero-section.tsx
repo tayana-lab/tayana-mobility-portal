@@ -17,7 +17,8 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 h-full flex items-center">
-        <div className="container mx-auto px-4">
+        {/* Increased left padding from px-4 to pl-12 md:pl-20 lg:pl-32 */}
+        <div className="container mx-auto pl-12 md:pl-20 lg:pl-32 pr-4">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               <span className="text-cyan-400">YOUR PARTNER</span>
