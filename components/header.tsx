@@ -1,16 +1,28 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Menu, X, ChevronDown, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white shadow-md" : ""}`}
+    >
       <div className="container mx-auto px-4 pl-8 md:pl-12 lg:pl-16">
         <div className="flex items-center justify-between h-24">
           {/* Logo */}
@@ -26,41 +38,46 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            <Link href="#home" className="text-white hover:text-cyan-400 transition-colors font-medium">
+            <Link
+              href="#home"
+              className={`${isScrolled ? "text-gray-900" : "text-white"} hover:text-cyan-400 transition-colors font-medium`}
+            >
               HOME
             </Link>
 
             <div className="group relative">
-              <button className="text-white hover:text-cyan-400 transition-colors font-medium flex items-center gap-1">
+              <button
+                className={`${isScrolled ? "text-gray-900" : "text-white"} hover:text-cyan-400 transition-colors font-medium flex items-center gap-1`}
+              >
                 PRODUCTS
                 <ChevronDown className="h-4 w-4" />
               </button>
               <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-                <div className="min-w-[240px] py-2">
+                <div className={`min-w-[240px] py-2 ${isScrolled ? "bg-white shadow-lg" : ""}`}>
                   <Link
                     href="#product1"
-                    className="flex items-center justify-between px-4 py-2.5 text-white hover:text-cyan-400 transition-all"
+                    className={`flex items-center justify-between px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
                   >
                     <span>5G Solutions</span>
                     <ChevronRight className="h-4 w-4" />
                   </Link>
                   <Link
                     href="#product2"
-                    className="flex items-center justify-between px-4 py-2.5 text-white hover:text-cyan-400 transition-all"
+                    className={`flex items-center justify-between px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
                   >
                     <span>Network Infrastructure</span>
                     <ChevronRight className="h-4 w-4" />
                   </Link>
                   <Link
                     href="#product3"
-                    className="flex items-center justify-between px-4 py-2.5 text-white hover:text-cyan-400 transition-all"
+                    className={`flex items-center justify-between px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
                   >
                     <span>IoT Platforms</span>
                     <ChevronRight className="h-4 w-4" />
                   </Link>
                   <Link
                     href="#product4"
-                    className="flex items-center justify-between px-4 py-2.5 text-white hover:text-cyan-400 transition-all"
+                    className={`flex items-center justify-between px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
                   >
                     <span>Cloud Services</span>
                   </Link>
@@ -69,98 +86,141 @@ export function Header() {
             </div>
 
             <div className="group relative">
-              <button className="text-white hover:text-cyan-400 transition-colors font-medium flex items-center gap-1">
+              <button
+                className={`${isScrolled ? "text-gray-900" : "text-white"} hover:text-cyan-400 transition-colors font-medium flex items-center gap-1`}
+              >
                 SOLUTIONS
                 <ChevronDown className="h-4 w-4" />
               </button>
               <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-                <div className="min-w-[260px] py-2">
-                  <Link href="#solution1" className="block px-4 py-2.5 text-white hover:text-cyan-400 transition-all">
+                <div className={`min-w-[260px] py-2 ${isScrolled ? "bg-white shadow-lg" : ""}`}>
+                  <Link
+                    href="#solution1"
+                    className={`block px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
+                  >
                     Core Offerings
                   </Link>
-                  <Link href="#solution2" className="block px-4 py-2.5 text-white hover:text-cyan-400 transition-all">
+                  <Link
+                    href="#solution2"
+                    className={`block px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
+                  >
                     Digital Onboarding Solutions
                   </Link>
                   <Link
                     href="#solution3"
-                    className="flex items-center justify-between px-4 py-2.5 text-white hover:text-cyan-400 transition-all"
+                    className={`flex items-center justify-between px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
                   >
                     <span>Digital VAS Services</span>
                     <ChevronRight className="h-4 w-4" />
                   </Link>
                   <Link
                     href="#solution4"
-                    className="flex items-center justify-between px-4 py-2.5 text-white hover:text-cyan-400 transition-all"
+                    className={`flex items-center justify-between px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
                   >
                     <span>Cybersecurity</span>
                     <ChevronRight className="h-4 w-4" />
                   </Link>
-                  <Link href="#solution5" className="block px-4 py-2.5 text-white hover:text-cyan-400 transition-all">
+                  <Link
+                    href="#solution5"
+                    className={`block px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
+                  >
                     Device Management
                   </Link>
-                  <Link href="#solution6" className="block px-4 py-2.5 text-white hover:text-cyan-400 transition-all">
+                  <Link
+                    href="#solution6"
+                    className={`block px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
+                  >
                     Spam Call
                   </Link>
                   <Link
                     href="#solution7"
-                    className="flex items-center justify-between px-4 py-2.5 text-white hover:text-cyan-400 transition-all"
+                    className={`flex items-center justify-between px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
                   >
                     <span>Roaming Solutions</span>
                     <ChevronRight className="h-4 w-4" />
                   </Link>
-                  <Link href="#solution8" className="block px-4 py-2.5 text-white hover:text-cyan-400 transition-all">
+                  <Link
+                    href="#solution8"
+                    className={`block px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
+                  >
                     Testing Solutions
                   </Link>
                   <Link
                     href="#solution9"
-                    className="flex items-center justify-between px-4 py-2.5 text-white hover:text-cyan-400 transition-all"
+                    className={`flex items-center justify-between px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
                   >
                     <span>IoT & M2M</span>
                     <ChevronRight className="h-4 w-4" />
                   </Link>
                   <Link
                     href="#solution10"
-                    className="flex items-center justify-between px-4 py-2.5 text-white hover:text-cyan-400 transition-all"
+                    className={`flex items-center justify-between px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
                   >
                     <span>Telcovas OSS</span>
                     <ChevronRight className="h-4 w-4" />
                   </Link>
-                  <Link href="#solution11" className="block px-4 py-2.5 text-white hover:text-cyan-400 transition-all">
+                  <Link
+                    href="#solution11"
+                    className={`block px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
+                  >
                     Voice Fraud solutions
                   </Link>
-                  <Link href="#solution12" className="block px-4 py-2.5 text-white hover:text-cyan-400 transition-all">
+                  <Link
+                    href="#solution12"
+                    className={`block px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
+                  >
                     Storage Solutions
                   </Link>
-                  <Link href="#solution13" className="block px-4 py-2.5 text-white hover:text-cyan-400 transition-all">
+                  <Link
+                    href="#solution13"
+                    className={`block px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
+                  >
                     Location-Based Services (LBS)
                   </Link>
                   <Link
                     href="#solution14"
-                    className="flex items-center justify-between px-4 py-2.5 text-white hover:text-cyan-400 transition-all"
+                    className={`flex items-center justify-between px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
                   >
                     <span>Telcovas AI</span>
                     <ChevronRight className="h-4 w-4" />
                   </Link>
-                  <Link href="#solution15" className="block px-4 py-2.5 text-white hover:text-cyan-400 transition-all">
+                  <Link
+                    href="#solution15"
+                    className={`block px-4 py-2.5 ${isScrolled ? "text-gray-900 hover:text-cyan-400" : "text-white hover:text-cyan-400"} transition-all`}
+                  >
                     ARA-Automated roaming assist
                   </Link>
                 </div>
               </div>
             </div>
 
-            <Link href="#about" className="text-white hover:text-cyan-400 transition-colors font-medium">
+            <Link
+              href="#about"
+              className={`${isScrolled ? "text-gray-900" : "text-white"} hover:text-cyan-400 transition-colors font-medium`}
+            >
               ABOUT
             </Link>
-            <Link href="#contact" className="text-white hover:text-cyan-400 transition-colors font-medium">
+            <Link
+              href="#contact"
+              className={`${isScrolled ? "text-gray-900" : "text-white"} hover:text-cyan-400 transition-colors font-medium`}
+            >
               CONTACT
             </Link>
-            <Link href="#careers" className="text-white hover:text-cyan-400 transition-colors font-medium">
+            <Link
+              href="#careers"
+              className={`${isScrolled ? "text-gray-900" : "text-white"} hover:text-cyan-400 transition-colors font-medium`}
+            >
               CAREERS
             </Link>
           </nav>
 
           {/* Mobile Menu Button */}
-          <Button variant="ghost" size="icon" className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
+          <Button
+            variant="ghost"
+            size="icon"
+            className={`md:hidden ${isScrolled ? "text-gray-900" : "text-white"}`}
+            onClick={() => setIsOpen(!isOpen)}
+          >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
         </div>
