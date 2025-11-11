@@ -11,7 +11,7 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 pl-8 md:pl-12 lg:pl-16">
         <div className="flex items-center justify-between h-24">
           {/* Logo */}
           <Link href="/" className="flex items-center mt-4">
