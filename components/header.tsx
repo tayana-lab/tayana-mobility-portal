@@ -69,7 +69,7 @@ export function Header() {
             width={240}
             height={68}
             className="h-16 w-auto"
-            priority
+the ima            priority
           />
         </Link>
 
