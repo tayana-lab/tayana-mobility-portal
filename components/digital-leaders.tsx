@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 
-function useInView(threshold = 0.2) {
+function useInView(threshold = 0.12) {
   const ref = useRef<HTMLDivElement>(null)
   const [inView, setInView] = useState(false)
   useEffect(() => {
@@ -24,33 +24,40 @@ const clients = [
   { name: "Loop Mobile", image: "/loop-mobile-logo.jpg" },
 ]
 
-// Duplicate for seamless ticker
-const tickerClients = [...clients, ...clients]
+const ticker = [...clients, ...clients, ...clients]
+
+const metrics = [
+  { value: "30M+", label: "Subscribers Served" },
+  { value: "100%", label: "Client Referenceable" },
+  { value: "20+", label: "Countries" },
+  { value: "$1–35", label: "ARPU Range (USD)" },
+]
 
 export function DigitalLeaders() {
   const { ref, inView } = useInView()
 
   return (
-    <section ref={ref} className="relative py-28 overflow-hidden" style={{ background: "linear-gradient(180deg, #020818 0%, #030e22 100%)" }}>
+    <section ref={ref} className="relative py-32 overflow-hidden" style={{ background: "linear-gradient(180deg,#020818 0%,#030e22 100%)" }}>
 
-      {/* Background grid */}
-      <div className="absolute inset-0 opacity-[0.025]"
-        style={{ backgroundImage: "linear-gradient(#00c8ff 1px, transparent 1px), linear-gradient(90deg, #00c8ff 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+      {/* Grid bg */}
+      <div className="absolute inset-0 opacity-[0.022]" style={{ backgroundImage: "linear-gradient(#00c8ff 1px,transparent 1px),linear-gradient(90deg,#00c8ff 1px,transparent 1px)", backgroundSize: "72px 72px" }} />
 
-      {/* Glow orb left */}
-      <div className="absolute -bottom-20 -left-40 w-80 h-80 rounded-full opacity-10"
-        style={{ background: "radial-gradient(circle, #0066ff 0%, transparent 70%)" }} />
+      {/* Glow */}
+      <div className="absolute -bottom-24 -left-40 w-[480px] h-[480px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle,rgba(0,102,255,0.07) 0%,transparent 70%)" }} />
 
-      <div className="container mx-auto px-6 lg:px-16 relative z-10">
+      <div className="container mx-auto px-6 lg:px-20 relative z-10">
+
         {/* Header */}
-        <div className={`text-center mb-6 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="section-line" />
-            <span className="text-cyan-400 text-sm font-semibold uppercase tracking-[0.2em]">Our Clients</span>
-            <div className="w-14 h-px bg-gradient-to-l from-cyan-400 to-transparent" />
+        <div
+          className={`text-center mb-20 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+        >
+          <div className="flex items-center justify-center gap-3 mb-5">
+            <div className={`h-[2px] bg-gradient-to-r from-transparent to-cyan-400 transition-all duration-700 ${inView ? "w-14 opacity-100" : "w-0 opacity-0"}`} style={{ transitionDelay: "100ms" }} />
+            <span className="text-cyan-400 text-xs font-semibold uppercase tracking-[0.25em]">Our Clients</span>
+            <div className={`h-[2px] bg-gradient-to-l from-transparent to-cyan-400 transition-all duration-700 ${inView ? "w-14 opacity-100" : "w-0 opacity-0"}`} style={{ transitionDelay: "100ms" }} />
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Digital Leaders with <span className="gradient-text">Tayana</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-5 leading-tight">
+            Digital Leaders <span className="gradient-text">With Tayana</span>
           </h2>
           <p className="text-slate-400 max-w-2xl mx-auto text-base leading-relaxed">
             A long-term caring relationship with all our clients — a bond that grows stronger as years pass,
@@ -58,60 +65,65 @@ export function DigitalLeaders() {
           </p>
         </div>
 
-        {/* Two-column layout */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20 mt-16">
-          {/* Left — quote card */}
-          <div className={`glass-card rounded-2xl p-8 border-l-4 border-cyan-400 transition-all duration-700 delay-200 ${inView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
-            <div className="text-5xl text-cyan-400/30 font-serif leading-none mb-4">"</div>
-            <p className="text-slate-200 text-lg leading-relaxed italic mb-6">
-              This rock-solid performance has created a working partnership with all our clients with mutual respect.
-              As a result, all of our clients and Products and Solutions are 100% referenceable — without exception.
-            </p>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-px bg-cyan-400/60" />
-              <span className="text-cyan-400 text-sm font-semibold uppercase tracking-widest">Tayana Mobility</span>
+        {/* Two-column */}
+        <div className="grid lg:grid-cols-2 gap-10 items-stretch mb-20">
+
+          {/* Quote card */}
+          <div
+            className={`glass-card rounded-2xl p-9 border-l-[3px] border-cyan-400 flex flex-col justify-between transition-all duration-700 ${inView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"}`}
+            style={{ transitionDelay: "200ms" }}
+          >
+            <div>
+              <svg className="w-10 h-10 text-cyan-400/30 mb-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+              </svg>
+              <p className="text-slate-200 text-lg leading-relaxed italic">
+                This rock-solid performance has created a working partnership with all our clients with mutual respect.
+                As a result, all of our clients and Products and Solutions are 100% referenceable — without exception.
+              </p>
+            </div>
+            <div className="flex items-center gap-3 mt-8">
+              <div className="w-10 h-[2px] bg-cyan-400/60" />
+              <span className="text-cyan-400 text-xs font-semibold uppercase tracking-[0.2em]">Tayana Mobility</span>
             </div>
           </div>
 
-          {/* Right — metrics */}
-          <div className={`grid grid-cols-2 gap-4 transition-all duration-700 delay-300 ${inView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}>
-            {[
-              { value: "30M+", label: "Subscribers Served", icon: "◈" },
-              { value: "100%", label: "Client Referenceable", icon: "◉" },
-              { value: "20+", label: "Countries", icon: "◎" },
-              { value: "$1-35", label: "ARPU Range (USD)", icon: "◌" },
-            ].map((m) => (
-              <div key={m.label} className="glass-card rounded-2xl p-6 text-center group hover:-translate-y-1 transition-all duration-300">
-                <div className="text-cyan-400 text-xl mb-2">{m.icon}</div>
-                <div className="text-2xl font-bold gradient-text mb-1">{m.value}</div>
-                <div className="text-xs text-slate-400 uppercase tracking-wider">{m.label}</div>
+          {/* Metrics grid */}
+          <div
+            className={`grid grid-cols-2 gap-4 transition-all duration-700 ${inView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"}`}
+            style={{ transitionDelay: "300ms" }}
+          >
+            {metrics.map((m, i) => (
+              <div
+                key={m.label}
+                className={`glass-card hover-lift rounded-2xl p-6 flex flex-col items-center justify-center text-center transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                style={{ transitionDelay: `${350 + i * 80}ms` }}
+              >
+                <span className="text-3xl font-bold gradient-text mb-1.5">{m.value}</span>
+                <span className="text-xs text-slate-400 uppercase tracking-widest leading-relaxed">{m.label}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Logo ticker */}
-        <div className={`transition-all duration-700 delay-400 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-          <p className="text-center text-xs text-slate-500 uppercase tracking-[0.3em] mb-8">Trusted By</p>
-          <div className="relative overflow-hidden">
-            {/* Left fade */}
-            <div className="absolute left-0 top-0 h-full w-24 z-10 pointer-events-none"
-              style={{ background: "linear-gradient(90deg, #020818 0%, transparent 100%)" }} />
-            {/* Right fade */}
-            <div className="absolute right-0 top-0 h-full w-24 z-10 pointer-events-none"
-              style={{ background: "linear-gradient(270deg, #020818 0%, transparent 100%)" }} />
+        <div
+          className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+          style={{ transitionDelay: "450ms" }}
+        >
+          <p className="text-center text-[10px] text-slate-500 uppercase tracking-[0.35em] mb-8">Trusted By</p>
+          <div className="relative overflow-hidden rounded-xl">
+            {/* Fade edges */}
+            <div className="absolute left-0 top-0 h-full w-28 z-10 pointer-events-none" style={{ background: "linear-gradient(90deg,#020818 0%,transparent 100%)" }} />
+            <div className="absolute right-0 top-0 h-full w-28 z-10 pointer-events-none" style={{ background: "linear-gradient(270deg,#020818 0%,transparent 100%)" }} />
 
-            <div className="flex animate-ticker" style={{ width: "max-content" }}>
-              {tickerClients.map((client, i) => (
+            <div className="flex anim-ticker" style={{ width: "max-content" }}>
+              {ticker.map((client, i) => (
                 <div
                   key={i}
-                  className="mx-10 flex items-center justify-center w-36 h-20 glass-card rounded-xl px-4 grayscale hover:grayscale-0 opacity-50 hover:opacity-100 transition-all duration-300 flex-shrink-0"
+                  className="mx-8 flex items-center justify-center w-36 h-20 glass-card rounded-xl px-4 grayscale hover:grayscale-0 opacity-50 hover:opacity-100 transition-all duration-400 flex-shrink-0"
                 >
-                  <img
-                    src={client.image}
-                    alt={client.name}
-                    className="max-w-full max-h-12 object-contain"
-                  />
+                  <img src={client.image} alt={client.name} className="max-w-full max-h-12 object-contain" />
                 </div>
               ))}
             </div>
