@@ -1,5 +1,6 @@
 "use client"
 
+import { useRef, useState } from "react"
 import { useCountUp, useInView } from "@/lib/use-count-up"
 
 const features = [
@@ -48,7 +49,9 @@ const stats = [
   { from: 80, end: 100, suffix: "%", label: "Referenceable" },
 ]
 
-function StatItem({ from, end, suffix, label, inView, delay }: { from: number; end: number; suffix: string; label: string; inView: boolean; delay: number }) {
+function StatItem({ from, end, suffix, label, inView, delay }: {
+  from: number; end: number; suffix: string; label: string; inView: boolean; delay: number
+}) {
   const count = useCountUp(end, from, inView, 2000)
   return (
     <div
@@ -57,6 +60,47 @@ function StatItem({ from, end, suffix, label, inView, delay }: { from: number; e
     >
       <span className="text-4xl md:text-5xl font-bold gradient-text mb-2 tabular-nums">{count}{suffix}</span>
       <span className="text-xs text-slate-400 uppercase tracking-widest mt-1">{label}</span>
+    </div>
+  )
+}
+
+/* 3-D tilt card on mouse move */
+function TiltCard({ children, delay, inView }: { children: React.ReactNode; delay: number; inView: boolean }) {
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = cardRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const x = (e.clientX - rect.left) / rect.width - 0.5
+    const y = (e.clientY - rect.top) / rect.height - 0.5
+    el.style.transform = `perspective(600px) rotateX(${(-y * 8).toFixed(2)}deg) rotateY(${(x * 8).toFixed(2)}deg) translateY(-4px)`
+  }
+
+  const handleMouseLeave = () => {
+    const el = cardRef.current
+    if (!el) return
+    el.style.transform = "perspective(600px) rotateX(0deg) rotateY(0deg) translateY(0px)"
+  }
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="glass-card rounded-2xl p-5 group cursor-default transition-all duration-700"
+      style={{
+        transitionDelay: `${delay}ms`,
+        opacity: inView ? 1 : 0,
+        transform: inView ? "translateY(0)" : "translateY(10px)",
+        transition: inView
+          ? `opacity 0.7s ease ${delay}ms, transform 0.35s cubic-bezier(0.22,1,0.36,1)`
+          : `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
+        boxShadow: "0 0 0 1px rgba(0,200,255,0.07)",
+        willChange: "transform",
+      }}
+    >
+      {children}
     </div>
   )
 }
@@ -70,19 +114,25 @@ export function WhoWeAre() {
       {/* Subtle grid */}
       <div className="absolute inset-0 opacity-[0.028]" style={{ backgroundImage: "linear-gradient(#00c8ff 1px,transparent 1px),linear-gradient(90deg,#00c8ff 1px,transparent 1px)", backgroundSize: "72px 72px" }} />
 
-      {/* Glow orbs */}
-      <div className="absolute -top-32 right-0 w-[520px] h-[520px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle,rgba(0,200,255,0.07) 0%,transparent 70%)" }} />
-      <div className="absolute bottom-0 -left-32 w-96 h-96 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle,rgba(0,102,255,0.07) 0%,transparent 70%)" }} />
+      {/* Animated glow orbs */}
+      <div className="absolute -top-32 right-0 w-[520px] h-[520px] rounded-full pointer-events-none anim-glow-orb" style={{ background: "radial-gradient(circle,rgba(0,200,255,0.07) 0%,transparent 70%)" }} />
+      <div className="absolute bottom-0 -left-32 w-96 h-96 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle,rgba(0,102,255,0.07) 0%,transparent 70%)", animation: "glowOrb 11s ease-in-out 2s infinite" }} />
 
       <div className="container mx-auto px-6 lg:px-20 relative z-10">
 
-        {/* Eyebrow + heading */}
+        {/* Eyebrow + heading with word reveal */}
         <div className={`mb-16 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
           <div className="section-eyebrow mb-4">
             <span className="text-cyan-400 text-xs font-semibold uppercase tracking-[0.25em]">About Us</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-            Who <span className="gradient-text">We Are</span>
+            {inView && (
+              <>
+                <span className="word-mask"><span style={{ display:"inline-block", animation: "wordReveal 0.6s cubic-bezier(0.22,1,0.36,1) 0ms both" }}>Who&nbsp;</span></span>
+                <span className="word-mask gradient-text"><span style={{ display:"inline-block", animation: "wordReveal 0.6s cubic-bezier(0.22,1,0.36,1) 80ms both" }}>We&nbsp;</span></span>
+                <span className="word-mask gradient-text"><span style={{ display:"inline-block", animation: "wordReveal 0.6s cubic-bezier(0.22,1,0.36,1) 160ms both" }}>Are</span></span>
+              </>
+            )}
           </h2>
         </div>
 
@@ -91,7 +141,7 @@ export function WhoWeAre() {
           {/* Left — text */}
           <div
             className={`space-y-5 transition-all duration-700 ${inView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"}`}
-            style={{ transitionDelay: "150ms" }}
+            style={{ transitionDelay: "150ms", filter: inView ? "blur(0px)" : "blur(4px)", transition: "opacity 0.8s ease 150ms, transform 0.8s ease 150ms, filter 0.8s ease 150ms" }}
           >
             <p className="text-slate-300 text-base md:text-lg leading-relaxed">
               Tayana Mobility Technologies, founded in 1999 and headquartered in Bangalore, India, offers a wide range of products and solutions to communication service providers and enterprises.
@@ -113,20 +163,16 @@ export function WhoWeAre() {
             </div>
           </div>
 
-          {/* Right — feature cards with stagger */}
+          {/* Right — tilt feature cards */}
           <div className="grid grid-cols-2 gap-4">
             {features.map((f, i) => (
-              <div
-                key={f.label}
-                className={`glass-card hover-lift rounded-2xl p-5 group transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-                style={{ transitionDelay: `${250 + i * 100}ms` }}
-              >
+              <TiltCard key={f.label} delay={250 + i * 100} inView={inView}>
                 <div className="w-11 h-11 rounded-xl bg-cyan-400/10 text-cyan-400 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-cyan-400/20 transition-all duration-300">
                   {f.icon}
                 </div>
                 <h4 className="text-white font-semibold text-sm mb-1.5">{f.label}</h4>
                 <p className="text-slate-400 text-xs leading-relaxed">{f.desc}</p>
-              </div>
+              </TiltCard>
             ))}
           </div>
         </div>
