@@ -15,19 +15,29 @@ function useInView(threshold = 0.15) {
   return { ref, inView }
 }
 
-function useCountUp(target: number, inView: boolean, duration = 1800) {
-  const [count, setCount] = useState(0)
+function useCountUp(target: number, from: number, inView: boolean, duration = 2000) {
+  const [count, setCount] = useState(from)
   useEffect(() => {
     if (!inView) return
-    let start = 0
-    const step = Math.ceil(target / (duration / 16))
-    const timer = setInterval(() => {
-      start += step
-      if (start >= target) { setCount(target); clearInterval(timer) }
-      else setCount(start)
-    }, 16)
-    return () => clearInterval(timer)
-  }, [inView, target, duration])
+    let startTime: number | null = null
+    const range = target - from
+
+    function easeOutQuart(t: number) {
+      return 1 - Math.pow(1 - t, 4)
+    }
+
+    function tick(timestamp: number) {
+      if (!startTime) startTime = timestamp
+      const elapsed = timestamp - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      const eased = easeOutQuart(progress)
+      setCount(Math.round(from + range * eased))
+      if (progress < 1) requestAnimationFrame(tick)
+    }
+
+    const raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [inView, target, from, duration])
   return count
 }
 
@@ -71,21 +81,21 @@ const features = [
 ]
 
 const stats = [
-  { end: 1999, suffix: "", label: "Founded" },
-  { end: 25, suffix: "+", label: "Years of Excellence" },
-  { end: 50, suffix: "+", label: "Global Clients" },
-  { end: 100, suffix: "%", label: "Referenceable" },
+  { from: 1990, end: 1999, suffix: "", label: "Founded" },
+  { from: 0, end: 25, suffix: "+", label: "Years of Excellence" },
+  { from: 0, end: 50, suffix: "+", label: "Global Clients" },
+  { from: 80, end: 100, suffix: "%", label: "Referenceable" },
 ]
 
-function StatItem({ end, suffix, label, inView, delay }: { end: number; suffix: string; label: string; inView: boolean; delay: number }) {
-  const count = useCountUp(end, inView)
+function StatItem({ from, end, suffix, label, inView, delay }: { from: number; end: number; suffix: string; label: string; inView: boolean; delay: number }) {
+  const count = useCountUp(end, from, inView, 2000)
   return (
     <div
-      className={`flex flex-col items-center py-8 px-4 text-center border-r border-cyan-400/10 last:border-r-0 transition-all duration-700`}
+      className="flex flex-col items-center py-10 px-4 text-center border-r border-cyan-400/10 last:border-r-0 transition-all duration-700"
       style={{ transitionDelay: `${delay}ms`, opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(24px)" }}
     >
-      <span className="text-3xl font-bold gradient-text mb-1">{count}{suffix}</span>
-      <span className="text-xs text-slate-400 uppercase tracking-widest">{label}</span>
+      <span className="text-4xl md:text-5xl font-bold gradient-text mb-2 tabular-nums">{count}{suffix}</span>
+      <span className="text-xs text-slate-400 uppercase tracking-widest mt-1">{label}</span>
     </div>
   )
 }
@@ -166,7 +176,7 @@ export function WhoWeAre() {
           style={{ background: "rgba(0,200,255,0.025)", transitionDelay: "500ms" }}
         >
           {stats.map((s, i) => (
-            <StatItem key={s.label} end={s.end} suffix={s.suffix} label={s.label} inView={inView} delay={550 + i * 80} />
+            <StatItem key={s.label} from={s.from} end={s.end} suffix={s.suffix} label={s.label} inView={inView} delay={550 + i * 120} />
           ))}
         </div>
       </div>
