@@ -41,9 +41,7 @@ export function HeroSection() {
             className={`flex items-center gap-3 mb-7 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
             style={{ transitionDelay: "0.1s" }}
           >
-            <div className={`h-[2px] bg-cyan-400 transition-all duration-700 ${visible ? "w-12" : "w-0"}`} style={{ transitionDelay: "0.15s" }} />
-            <span className="text-cyan-400 text-xs font-semibold uppercase tracking-[0.25em]">Telecom Digital Transformation</span>
-          </div>
+        
 
           {/* Headline */}
           <h1 className="font-bold leading-[1.1] mb-7">
