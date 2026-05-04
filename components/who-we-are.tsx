@@ -70,7 +70,18 @@ export function WhoWeAre() {
   return (
     <section ref={ref} className="relative bg-white py-24 overflow-hidden">
 
-      <div className="container mx-auto px-6 lg:px-20">
+      {/* Circuit board background pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `url('/images/circuit-bg.jpg')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          opacity: 0.18,
+        }}
+      />
+
+      <div className="container mx-auto px-6 lg:px-20 relative z-10">
 
         {/* Eyebrow */}
         <div
