@@ -43,15 +43,6 @@ export function HeroSection() {
       <div className="relative z-10 h-full flex items-center">
         <div className="pl-12 md:pl-20 lg:pl-32 pr-6 max-w-4xl">
 
-          {/* Badge */}
-          <div
-            className={`inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border border-cyan-400/30 bg-cyan-400/10 text-cyan-300 text-sm font-medium tracking-wider transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-            style={{ transitionDelay: "0.1s" }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-            Formerly Tayana Software Solutions
-          </div>
-
           {/* Headline */}
           <h1 className="font-bold leading-[1.1] mb-6">
             <span

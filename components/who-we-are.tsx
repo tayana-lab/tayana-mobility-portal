@@ -52,7 +52,7 @@ export function WhoWeAre() {
           {/* Left — text */}
           <div className={`space-y-6 transition-all duration-700 delay-200 ${inView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
             <p className="text-slate-300 text-base leading-relaxed">
-              Tayana Mobility Technologies, formerly known as Tayana Software Solutions, founded in 1999 and headquartered in Bangalore, India, offers a wide range of products and solutions to communication service providers and enterprises.
+              Tayana Mobility Technologies, founded in 1999 and headquartered in Bangalore, India, offers a wide range of products and solutions to communication service providers and enterprises.
             </p>
             <p className="text-slate-400 text-base leading-relaxed">
               We enable the digital transformation journey for CSPs to become true digital service providers with a mix of products from Digital BSS, Enterprise Telco BI/Analytics, VAS, Messaging, and Network solutions.
