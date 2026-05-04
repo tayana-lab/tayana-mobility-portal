@@ -1,13 +1,36 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useCountUp } from "@/lib/use-count-up"
+
+const heroStats = [
+  { from: 0, end: 25, suffix: "+", label: "Years Experience" },
+  { from: 0, end: 50, suffix: "+", label: "Global Clients" },
+  { from: 0, end: 30, suffix: "M+", label: "Subscribers Served" },
+]
+
+function HeroStatItem({ from, end, suffix, label, triggered }: { from: number; end: number; suffix: string; label: string; triggered: boolean }) {
+  const count = useCountUp(end, from, triggered, 2200)
+  return (
+    <div className="flex flex-col gap-1">
+      <div className="flex items-end gap-1">
+        <span className="text-2xl md:text-3xl font-bold text-white tabular-nums">{count}{suffix}</span>
+      </div>
+      <span className="text-[11px] text-slate-400 uppercase tracking-[0.2em]">{label}</span>
+      <div className="h-[1px] w-8 bg-cyan-400/50 mt-1" />
+    </div>
+  )
+}
 
 export function HeroSection() {
   const [visible, setVisible] = useState(false)
+  const [statsTrigger, setStatsTrigger] = useState(false)
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 80)
-    return () => clearTimeout(t)
+    // Trigger stats count-up after hero animations settle
+    const s = setTimeout(() => setStatsTrigger(true), 1100)
+    return () => { clearTimeout(t); clearTimeout(s) }
   }, [])
 
   return (
@@ -88,18 +111,8 @@ export function HeroSection() {
             className={`flex gap-10 mt-14 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
             style={{ transitionDelay: "0.85s" }}
           >
-            {[
-              { value: "25+", label: "Years Experience" },
-              { value: "50+", label: "Global Clients" },
-              { value: "30M+", label: "Subscribers Served" },
-            ].map((s, i) => (
-              <div key={s.label} className="flex flex-col gap-1">
-                <div className="flex items-end gap-1">
-                  <span className="text-2xl md:text-3xl font-bold text-white">{s.value}</span>
-                </div>
-                <span className="text-[11px] text-slate-400 uppercase tracking-[0.2em]">{s.label}</span>
-                <div className="h-[1px] w-8 bg-cyan-400/50 mt-1" />
-              </div>
+            {heroStats.map((s) => (
+              <HeroStatItem key={s.label} from={s.from} end={s.end} suffix={s.suffix} label={s.label} triggered={statsTrigger} />
             ))}
           </div>
         </div>

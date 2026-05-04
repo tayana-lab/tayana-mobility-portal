@@ -1,19 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-
-function useInView(threshold = 0.12) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [inView, setInView] = useState(false)
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true) }, { threshold })
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [threshold])
-  return { ref, inView }
-}
+import { useCountUp, useInView } from "@/lib/use-count-up"
 
 const clients = [
   { name: "Banglalink", image: "/banglalink-logo.jpg" },
@@ -27,11 +14,26 @@ const clients = [
 const ticker = [...clients, ...clients, ...clients]
 
 const metrics = [
-  { value: "30M+", label: "Subscribers Served" },
-  { value: "100%", label: "Client Referenceable" },
-  { value: "20+", label: "Countries" },
-  { value: "$1–35", label: "ARPU Range (USD)" },
+  { from: 0, end: 30, suffix: "M+", label: "Subscribers Served", static: false },
+  { from: 80, end: 100, suffix: "%", label: "Client Referenceable", static: false },
+  { from: 0, end: 20, suffix: "+", label: "Countries", static: false },
+  { from: 0, end: 0, suffix: "$1–35", label: "ARPU Range (USD)", static: true },
 ]
+
+function MetricCard({ from, end, suffix, label, isStatic, inView, delay }: { from: number; end: number; suffix: string; label: string; isStatic: boolean; inView: boolean; delay: number }) {
+  const count = useCountUp(end, from, inView, 2000)
+  return (
+    <div
+      className={`glass-card hover-lift rounded-2xl p-6 flex flex-col items-center justify-center text-center transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      <span className="text-3xl font-bold gradient-text mb-1.5 tabular-nums">
+        {isStatic ? suffix : `${count}${suffix}`}
+      </span>
+      <span className="text-xs text-slate-400 uppercase tracking-widest leading-relaxed">{label}</span>
+    </div>
+  )
+}
 
 export function DigitalLeaders() {
   const { ref, inView } = useInView()
@@ -94,14 +96,16 @@ export function DigitalLeaders() {
             style={{ transitionDelay: "300ms" }}
           >
             {metrics.map((m, i) => (
-              <div
+              <MetricCard
                 key={m.label}
-                className={`glass-card hover-lift rounded-2xl p-6 flex flex-col items-center justify-center text-center transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ transitionDelay: `${350 + i * 80}ms` }}
-              >
-                <span className="text-3xl font-bold gradient-text mb-1.5">{m.value}</span>
-                <span className="text-xs text-slate-400 uppercase tracking-widest leading-relaxed">{m.label}</span>
-              </div>
+                from={m.from}
+                end={m.end}
+                suffix={m.suffix}
+                label={m.label}
+                isStatic={m.static}
+                inView={inView}
+                delay={350 + i * 80}
+              />
             ))}
           </div>
         </div>
