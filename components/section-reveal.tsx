@@ -50,7 +50,7 @@ export function SectionReveal({
       className={className}
       style={{
         opacity: visible ? 1 : 0,
-        transform: visible ? "translate(0,0) scale(1)" : `${translate} scale(0.98)`,
+        transform: visible ? "translate(0,0)" : translate === "none" ? "none" : translate,
         transition: `opacity 0.75s cubic-bezier(0.22,1,0.36,1) ${delay}ms, transform 0.75s cubic-bezier(0.22,1,0.36,1) ${delay}ms`,
         willChange: "opacity, transform",
       }}
