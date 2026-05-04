@@ -70,9 +70,6 @@ export function WhoWeAre() {
   return (
     <section ref={ref} className="relative bg-white py-24 overflow-hidden">
 
-      {/* Subtle top border accent */}
-      <div className="absolute top-0 left-0 right-0 h-1" style={{ background: "linear-gradient(90deg, #00c8ff, #0066ff, #00c8ff)" }} />
-
       <div className="container mx-auto px-6 lg:px-20">
 
         {/* Eyebrow */}

@@ -41,9 +41,6 @@ export function DigitalLeaders() {
   return (
     <section ref={ref} className="relative py-24 overflow-hidden" style={{ background: "#f2f3ff" }}>
 
-      {/* Subtle top divider */}
-      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "#dde0f5" }} />
-
       <div className="container mx-auto px-6 lg:px-20 relative z-10">
 
         {/* Header */}
