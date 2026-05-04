@@ -59,16 +59,16 @@ export function Header() {
         : "bg-transparent py-0"
         }`}
     >
-      <div className="max-w-screen-xl mx-auto px-6 lg:px-12 flex items-center justify-between h-20">
+      <div className="max-w-screen-xl mx-auto px-6 lg:px-12 flex items-center justify-between h-24">
 
         {/* Logo */}
-        <Link href="/" className="shrink-0">
+        <Link href="/" className="shrink-0 mt-3">
           <Image
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tayanaLogo-8sVpBPeIrRvCl3lnLcOCv1ZyvX8gSH.png"
             alt="Tayana Mobility"
-            width={200}
-            height={56}
-            className="h-12 w-auto"
+            width={240}
+            height={68}
+            className="h-16 w-auto"
             priority
           />
         </Link>
