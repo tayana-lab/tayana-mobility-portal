@@ -56,7 +56,7 @@
 
 @layer base {
   * { @apply border-border outline-ring/50; }
-  body { @apply bg-background text-foreground; background-color: #020818; }
+  body { @apply bg-background text-foreground; }
   html { scroll-behavior: smooth; }
 }
 

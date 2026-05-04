@@ -8,7 +8,7 @@ import { SectionReveal } from "@/components/section-reveal"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#020818]">
+    <main className="min-h-screen">
       <Header />
       <HeroSection />
       <SectionReveal direction="up">
