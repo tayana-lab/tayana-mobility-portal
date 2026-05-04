@@ -39,10 +39,10 @@ export function DigitalLeaders() {
   const { ref, inView } = useInView()
 
   return (
-    <section ref={ref} className="relative py-24 overflow-hidden bg-slate-50">
+    <section ref={ref} className="relative py-24 overflow-hidden" style={{ background: "#f2f3ff" }}>
 
       {/* Subtle top divider */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-slate-200" />
+      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "#dde0f5" }} />
 
       <div className="container mx-auto px-6 lg:px-20 relative z-10">
 
@@ -115,8 +115,8 @@ export function DigitalLeaders() {
           <p className="text-center text-[10px] text-slate-400 uppercase tracking-[0.35em] mb-8">Trusted By</p>
           <div className="relative overflow-hidden rounded-xl">
             {/* Fade edges */}
-            <div className="absolute left-0 top-0 h-full w-28 z-10 pointer-events-none" style={{ background: "linear-gradient(90deg,#f8fafc 0%,transparent 100%)" }} />
-            <div className="absolute right-0 top-0 h-full w-28 z-10 pointer-events-none" style={{ background: "linear-gradient(270deg,#f8fafc 0%,transparent 100%)" }} />
+            <div className="absolute left-0 top-0 h-full w-28 z-10 pointer-events-none" style={{ background: "linear-gradient(90deg,#f2f3ff 0%,transparent 100%)" }} />
+            <div className="absolute right-0 top-0 h-full w-28 z-10 pointer-events-none" style={{ background: "linear-gradient(270deg,#f2f3ff 0%,transparent 100%)" }} />
 
             <div className="flex anim-ticker" style={{ width: "max-content" }}>
               {ticker.map((client, i) => (
