@@ -1,20 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useEffect, useRef, useState } from "react"
-
-function useInView(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [inView, setInView] = useState(false)
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true) }, { threshold })
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [threshold])
-  return { ref, inView }
-}
+import { useInView } from "@/lib/use-count-up"
 
 const solutions = ["Digital BSS", "Analytics & BI", "Messaging & VAS", "Network Solutions", "Cybersecurity", "Roaming Solutions"]
 const company   = ["About Us", "Careers", "Partners", "News & Events", "Contact Us"]
