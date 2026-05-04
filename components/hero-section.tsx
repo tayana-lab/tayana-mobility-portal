@@ -105,18 +105,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll cue */}
-      <div
-        className={`absolute bottom-10 left-14 md:left-24 lg:left-36 flex flex-col items-start gap-2 transition-all duration-700 ${visible ? "opacity-60 translate-y-0" : "opacity-0 translate-y-4"}`}
-        style={{ transitionDelay: "1.1s" }}
-      >
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-8 rounded-full border border-white/30 flex items-start justify-center pt-1.5">
-            <div className="w-0.5 h-1.5 bg-white/60 rounded-full anim-float" />
-          </div>
-          <span className="text-[10px] text-slate-400 uppercase tracking-[0.25em]">Scroll Down</span>
-        </div>
-      </div>
+
     </section>
   )
 }
